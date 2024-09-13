@@ -1,5 +1,6 @@
 package com.codes.vinis.vEngine;
 
+import com.codes.vinis.vEngine.gfx.Image;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.image.DataBufferInt;
@@ -25,6 +26,27 @@ public class Renderer {
             pixels[i] = 0;
 
             i = i + 1;
+        }
+    }
+
+    public void setPixel(int x, int y, int value) {
+
+        if ((x < 0 || x >= width || y < 0 || y >= height) || value == 0xffff00ff) {
+
+            return;
+        }
+
+        pixels[x + y * width] = value;
+    }
+
+    public void drawImage(@NotNull Image image, int offX, int offY) {
+
+        for (int y = 0; y < image.getHeight(); y++) {
+
+            for (int x = 0;  x < image.getWidth(); x++) {
+
+                setPixel(x + offX, y + offY, image.getPixels()[x + y * image.getWidth()]);
+            }
         }
     }
 }
