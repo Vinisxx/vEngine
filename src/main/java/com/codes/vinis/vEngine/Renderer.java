@@ -41,9 +41,41 @@ public class Renderer {
 
     public void drawImage(@NotNull Image image, int offX, int offY) {
 
-        for (int y = 0; y < image.getHeight(); y++) {
+        int newX = 0;
+        int newY = 0;
 
-            for (int x = 0;  x < image.getWidth(); x++) {
+        int newWidth = image.getWidth();
+        int newHeight = image.getHeight();
+
+        if (offX < -newWidth) return;
+        if (offY < -newHeight) return;
+
+        if (offX >= width) return;
+        if (offY >= height) return;
+
+        if (offX < 0) {
+
+            newX = newX - offX;
+        }
+
+        if (offY < 0) {
+
+            newY = newY - offY;
+        }
+
+        if (newWidth + offX > width) {
+
+            newWidth = newWidth - (newWidth + offX - width);
+        }
+
+        if (newHeight + offY > height) {
+
+            newHeight = newHeight - (newHeight + offY - height);
+        }
+
+        for (int y = newY; y < newHeight; y++) {
+
+            for (int x = newX;  x < newWidth; x++) {
 
                 setPixel(x + offX, y + offY, image.getPixels()[x + y * image.getWidth()]);
             }

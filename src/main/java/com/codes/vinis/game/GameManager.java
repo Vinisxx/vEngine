@@ -28,7 +28,7 @@ public class GameManager extends AbstractGame {
     @Override
     public void render(@NotNull GameContainer gameContainer, @NotNull Renderer renderer) {
 
-        renderer.drawImage(image, gameContainer.getInput().getMouseX(), gameContainer.getInput().getMouseY());
+        renderer.drawImage(image, gameContainer.getInput().getMouseX() - (image.getWidth() / 2), gameContainer.getInput().getMouseY() - (image.getHeight() / 2));
     }
 
     public static void main(String[] args) {
