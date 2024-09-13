@@ -8,13 +8,15 @@ public class GameContainer implements Runnable{
 
     private @NotNull Window window;
 
+    private @NotNull Renderer renderer;
+
     private boolean running = false;
 
     private final double UPDATE_CAP = 1.0 / 60.0;
 
     private int width = 320, height = 240;
 
-    private float scale = 2f;
+    private float scale = 3f;
 
     private @NotNull String title = "vEngine v0.0.1";
 
@@ -24,9 +26,11 @@ public class GameContainer implements Runnable{
 
     public void start() {
 
-        this.thread = new Thread(this);
-
         this.window = new Window(this);
+
+        this.renderer = new Renderer(this);
+
+        this.thread = new Thread(this);
 
         this.thread.run();
     }
@@ -83,6 +87,7 @@ public class GameContainer implements Runnable{
 
             if (render) {
 
+                this.renderer.clear();
                 this.window.update();
                 frames = frames + 1;
 
@@ -137,6 +142,10 @@ public class GameContainer implements Runnable{
 
     public void setTitle(@NotNull String title) {
         this.title = title;
+    }
+
+    public @NotNull Window getWindow() {
+        return window;
     }
 
     public static void main(String[] args) {
