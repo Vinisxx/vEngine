@@ -22,7 +22,7 @@ public class Renderer {
 
         for (int i= 0; i < pixels.length;) {
 
-            pixels[i] += i;
+            pixels[i] = 0;
 
             i = i + 1;
         }

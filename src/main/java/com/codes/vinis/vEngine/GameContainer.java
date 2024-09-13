@@ -2,6 +2,9 @@ package com.codes.vinis.vEngine;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+
 public class GameContainer implements Runnable{
 
     private @NotNull Thread thread;
@@ -10,13 +13,15 @@ public class GameContainer implements Runnable{
 
     private @NotNull Renderer renderer;
 
+    private @NotNull Input input;
+
     private boolean running = false;
 
     private final double UPDATE_CAP = 1.0 / 60.0;
 
-    private int width = 320, height = 240;
+    private int width = 320, height = 320;
 
-    private float scale = 3f;
+    private float scale = 1.5f;
 
     private @NotNull String title = "vEngine v0.0.1";
 
@@ -29,6 +34,8 @@ public class GameContainer implements Runnable{
         this.window = new Window(this);
 
         this.renderer = new Renderer(this);
+
+        this.input = new Input(this);
 
         this.thread = new Thread(this);
 
@@ -73,7 +80,9 @@ public class GameContainer implements Runnable{
 
                 render = true;
 
-                //todo: update game
+                System.out.println("this is mouse position X: " + input.getMouseX() + "Y: " + input.getMouseY());
+
+                this.input.update();
 
                 if (frameTime >= 1.0) {
 

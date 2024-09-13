@@ -67,4 +67,8 @@ public class Window {
     public @NotNull Graphics getGraphics() {
         return graphics;
     }
+
+    public @NotNull JFrame getJframe() {
+        return jframe;
+    }
 }
