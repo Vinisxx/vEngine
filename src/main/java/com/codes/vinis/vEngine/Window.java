@@ -1,4 +1,4 @@
-package com.vinis.vEngine;
+package com.codes.vinis.vEngine;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -19,18 +19,18 @@ public class Window {
 
     private @NotNull Graphics graphics;
 
-    public Window(int width, int height, @NotNull String title) {
+    public Window(@NotNull GameContainer gameContainer) {
 
-        this.image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        this.image = new BufferedImage(gameContainer.getWidth(), gameContainer.getHeight(), BufferedImage.TYPE_INT_RGB);
         canvas = new Canvas();
 
-        Dimension s = new Dimension((int) (width * 3f), (int) (height * 3f));
+        Dimension s = new Dimension((int) (gameContainer.getWidth() * gameContainer.getScale()), (int) (gameContainer.getHeight() * gameContainer.getScale()));
 
         canvas.setPreferredSize(s);
         canvas.setMaximumSize(s);
         canvas.setMinimumSize(s);
 
-        jframe = new JFrame(title);
+        jframe = new JFrame(gameContainer.getTitle());
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jframe.setLayout(new BorderLayout());
         jframe.add(canvas, BorderLayout.CENTER);
