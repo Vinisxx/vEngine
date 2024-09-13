@@ -51,4 +51,20 @@ public class Window {
 
         bufferStrategy.show();
     }
+
+    public @NotNull BufferedImage getImage() {
+        return image;
+    }
+
+    public @NotNull BufferStrategy getBufferStrategy() {
+        return bufferStrategy;
+    }
+
+    public @NotNull Canvas getCanvas() {
+        return canvas;
+    }
+
+    public @NotNull Graphics getGraphics() {
+        return graphics;
+    }
 }
