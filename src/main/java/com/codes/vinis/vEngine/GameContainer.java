@@ -1,4 +1,4 @@
-package com.vinis.vEngine;
+package com.codes.vinis.vEngine;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -9,6 +9,13 @@ public class GameContainer implements Runnable{
     private boolean running = false;
 
     private final double UPDATE_CAP = 1.0 / 60.0;
+
+    private int width = 320, height = 240;
+
+    private float scale = 3f;
+
+    private @NotNull String title = "vEngine v0.0.1";
+
     public GameContainer() {
 
     }
@@ -93,6 +100,38 @@ public class GameContainer implements Runnable{
     private void dispose() {
 
         //todo: create a code of dispose
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public float getScale() {
+        return scale;
+    }
+
+    public void setScale(float scale) {
+        this.scale = scale;
+    }
+
+    public @NotNull String getTitle() {
+        return title;
+    }
+
+    public void setTitle(@NotNull String title) {
+        this.title = title;
     }
 
     public static void main(String[] args) {
