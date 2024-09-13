@@ -15,6 +15,8 @@ public class GameContainer implements Runnable{
 
     private @NotNull Input input;
 
+    private @NotNull AbstractGame game;
+
     private boolean running = false;
 
     private final double UPDATE_CAP = 1.0 / 60.0;
@@ -25,8 +27,9 @@ public class GameContainer implements Runnable{
 
     private @NotNull String title = "vEngine v0.0.1";
 
-    public GameContainer() {
+    public GameContainer(@NotNull AbstractGame game) {
 
+        this.game = game;
     }
 
     public void start() {
@@ -80,8 +83,7 @@ public class GameContainer implements Runnable{
 
                 render = true;
 
-                System.out.println("this is mouse position X: " + input.getMouseX() + "Y: " + input.getMouseY());
-
+                this.game.update(this, (float) UPDATE_CAP);
                 this.input.update();
 
                 if (frameTime >= 1.0) {
@@ -97,10 +99,12 @@ public class GameContainer implements Runnable{
             if (render) {
 
                 this.renderer.clear();
-                this.window.update();
-                frames = frames + 1;
 
-                //todo: render game
+                this.game.render(this, renderer);
+
+                this.window.update();
+
+                frames = frames + 1;
             } else {
 
                 try {
@@ -157,10 +161,7 @@ public class GameContainer implements Runnable{
         return window;
     }
 
-    public static void main(String[] args) {
-
-        @NotNull GameContainer gc = new GameContainer();
-
-        gc.start();
+    public @NotNull Input getInput() {
+        return input;
     }
 }
