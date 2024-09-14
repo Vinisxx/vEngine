@@ -1,15 +1,22 @@
 package com.codes.vinis;
 
+import com.codes.vinis.dimension.Dimension;
+import com.codes.vinis.window.Window;
 import org.jetbrains.annotations.NotNull;
+
+import javax.swing.*;
 
 public class Core implements Runnable{
 
     private @NotNull Thread thread;
 
+    private @NotNull Window window;
+
     private boolean running;
 
-    public Core() {
+    public Core(@NotNull String title, @NotNull Dimension windowDimension) {
 
+        this.window = new Window(title, windowDimension, new JPanel());
     }
 
     public void start() {
@@ -111,7 +118,7 @@ public class Core implements Runnable{
 
     public static void main(String[] args) {
 
-        @NotNull Core core = new Core();
+        @NotNull Core core = new Core("my window", new Dimension(720, 640));
 
         core.start();
     }
