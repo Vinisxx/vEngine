@@ -1,5 +1,7 @@
 package com.codes.vinis.dimension;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Objects;
 
 public final class Dimension {
@@ -45,5 +47,10 @@ public final class Dimension {
     @Override
     public int hashCode() {
         return Objects.hash(width, height);
+    }
+
+    @Override
+    public @NotNull String toString() {
+        return "Width: " + getWidth() + " Height: " + getHeight();
     }
 }

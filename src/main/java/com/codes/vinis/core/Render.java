@@ -39,8 +39,16 @@ public class Render extends ResponsivePanel {
         repaint();
     }
 
-    //todo: create plus methods and create some annotations in some methods
+    public void drawImage(@NotNull BufferedImage image, int offX, int offY) {
 
+        @NotNull Graphics2D g2d = image.createGraphics();
+
+        g2d.drawImage(image, offX, offY, null);
+
+        g2d.dispose();
+
+        repaint();
+    }
     @Override
     public void resizeComponents() {
 

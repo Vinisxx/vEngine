@@ -8,24 +8,51 @@ import java.awt.*;
 
 public class Window {
 
-    private @NotNull JFrame frame;
+    private final @NotNull JFrame frame;
 
-    private @NotNull JPanel panel;
+    private final @NotNull Dimension initialDimension;
 
     private @NotNull Dimension dimension;
 
-    public Window(@NotNull String title, @NotNull Dimension dimension, @NotNull JPanel panel) {
+    public Window(@NotNull String title, @NotNull Dimension dimension) {
 
         this.frame = new JFrame(title);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(new BorderLayout());
-        frame.add(panel, BorderLayout.CENTER);
-        frame.setSize(dimension.getWidth(), dimension.getHeight());
-        frame.setLocationRelativeTo(null);
-        frame.setResizable(true);
-        frame.setVisible(true);
 
+        this.initialDimension = dimension;
+
+        this.dimension = dimension;
+
+        initialize();
     }
 
+    private void initialize() {
+
+        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.frame.setSize(getInitialDimension().getWidth(), getInitialDimension().getHeight());
+        this.frame.setLayout(new BorderLayout());
+        this.frame.setLocationRelativeTo(null);
+        this.frame.setVisible(true);
+    }
+
+    public void update() {
+
+        setDimension(new Dimension(getFrame().getWidth(), getFrame().getHeight()));
+    }
     //todo: make a system of scale with this base
+
+    public @NotNull JFrame getFrame() {
+        return frame;
+    }
+
+    public @NotNull Dimension getInitialDimension() {
+        return initialDimension;
+    }
+
+    public @NotNull Dimension getDimension() {
+        return dimension;
+    }
+
+    public void setDimension(@NotNull Dimension dimension) {
+        this.dimension = dimension;
+    }
 }

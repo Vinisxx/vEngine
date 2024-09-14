@@ -1,10 +1,8 @@
-package com.codes.vinis;
+package com.codes.vinis.core;
 
 import com.codes.vinis.dimension.Dimension;
 import com.codes.vinis.window.Window;
 import org.jetbrains.annotations.NotNull;
-
-import javax.swing.*;
 
 public class Core implements Runnable{
 
@@ -14,9 +12,9 @@ public class Core implements Runnable{
 
     private boolean running;
 
-    public Core(@NotNull String title, @NotNull Dimension windowDimension) {
+    public Core(@NotNull Window window) {
 
-        this.window = new Window(title, windowDimension, new JPanel());
+        this.window = window;
     }
 
     public void start() {
@@ -29,7 +27,6 @@ public class Core implements Runnable{
     }
 
     public void stop() {
-
 
         setRunning(false);
 
@@ -77,6 +74,7 @@ public class Core implements Runnable{
 
                 if (render) {
 
+                    this.window.update();
                     //todo: create render
 
                     frames = frames + 1;
@@ -118,7 +116,7 @@ public class Core implements Runnable{
 
     public static void main(String[] args) {
 
-        @NotNull Core core = new Core("my window", new Dimension(720, 640));
+        @NotNull Core core = new Core(new Window("My Window", new Dimension(420, 340)));
 
         core.start();
     }
