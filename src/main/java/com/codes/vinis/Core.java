@@ -18,7 +18,7 @@ public class Core implements Runnable{
 
         this.thread = new Thread(this);
 
-        this.thread.run();
+        this.thread.start();
     }
 
     public void stop() {
@@ -33,7 +33,7 @@ public class Core implements Runnable{
 
         double update_cap = 1.0 / 60.0;
         double firstTime = 0;
-        double lastTime = System.nanoTime();
+        double lastTime = System.nanoTime() / 1000000000.0;
         double passedTime = 0;
         double unprocessedTime = 0;
 
@@ -53,7 +53,44 @@ public class Core implements Runnable{
 
             frameTime = frameTime + passedTime;
 
+            while (unprocessedTime >= update_cap) {
+
+                unprocessedTime = unprocessedTime - update_cap;
+                
+                render = true;
+                
+                if (frameTime >= 1.0) {
+
+                    frameTime = 0;
+                    fps = frames;
+                    frames = 0;
+
+                    System.out.println("FPS: " + fps);
+                }
+
+                if (render) {
+
+                    //todo: create render
+
+                    frames = frames + 1;
+                } else {
+
+                    try {
+                        Thread.sleep(1);
+                    } catch (InterruptedException e) {
+
+                        e.printStackTrace();
+                    }
+                }
+            }
         }
+
+        dispose();
+    }
+
+    public void dispose() {
+
+        //todo: create dispose logic
     }
 
     public @NotNull Thread getThread() {
@@ -70,5 +107,12 @@ public class Core implements Runnable{
 
     public void setRunning(boolean running) {
         this.running = running;
+    }
+
+    public static void main(String[] args) {
+
+        @NotNull Core core = new Core();
+
+        core.start();
     }
 }
