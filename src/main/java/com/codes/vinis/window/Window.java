@@ -1,7 +1,7 @@
 package com.codes.vinis.window;
 
 import com.codes.vinis.core.Renderer;
-import com.codes.vinis.dimension.Dimension;
+import com.codes.vinis.utils.Dimension;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -54,7 +54,6 @@ public class Window {
 
         getRenderer().update();
     }
-    //todo: make a system of scale with this base
 
     public @NotNull JFrame getFrame() {
 

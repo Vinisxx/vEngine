@@ -1,6 +1,8 @@
 package com.codes.vinis.core;
 
-import com.codes.vinis.dimension.Dimension;
+import com.codes.vinis.gfx.image.Image;
+import com.codes.vinis.utils.Dimension;
+import com.codes.vinis.utils.Location;
 import com.codes.vinis.window.Window;
 import org.jetbrains.annotations.NotNull;
 
@@ -8,7 +10,7 @@ public class Core implements Runnable{
 
     private @NotNull Thread thread;
 
-    private @NotNull Window window;
+    private final @NotNull Window window;
 
     private boolean running;
 
@@ -62,19 +64,19 @@ public class Core implements Runnable{
                 unprocessedTime = unprocessedTime - update_cap;
                 
                 render = true;
-                
+
                 if (frameTime >= 1.0) {
 
                     frameTime = 0;
                     fps = frames;
                     frames = 0;
 
+                    System.out.println(fps);
                 }
 
                 if (render) {
 
                     this.window.update();
-                    //todo: create render
 
                     frames = frames + 1;
                 } else {
@@ -113,9 +115,13 @@ public class Core implements Runnable{
         this.running = running;
     }
 
+    public @NotNull Window getWindow() {
+        return window;
+    }
+
     public static void main(String[] args) {
 
-        @NotNull Core core = new Core(new Window("My Window", new Dimension(420, 340), new Renderer(new Dimension(420, 340))));
+        @NotNull Core core = new Core(new Window("My Window", new Dimension(820, 740), new Renderer(new Dimension(820, 740))));
 
         core.start();
     }

@@ -1,9 +1,11 @@
 package com.codes.vinis.core;
 
-import com.codes.vinis.dimension.Dimension;
+import com.codes.vinis.gfx.image.Image;
+import com.codes.vinis.utils.Dimension;
 import com.codes.vinis.utils.Location;
 import com.codes.vinis.window.ResponsivePanel;
 import org.jetbrains.annotations.NotNull;
+
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -29,34 +31,28 @@ public class Renderer extends ResponsivePanel {
         g.drawImage(getBufferedImage(), 0, 0, getWidth(), getHeight(), null);
     }
 
-    private void clear() {
-
-        @NotNull Graphics2D g2d = getBufferedImage().createGraphics();
-
-        g2d.setColor(Color.BLACK);
-        g2d.fillRect(0, 0, getDimension().getWidth(), getDimension().getHeight());
-        g2d.dispose();
-
-        repaint();
-    }
-
     public void update() {
 
         if (getWidth() != getDimension().getWidth() || getHeight() != getDimension().getHeight()) {
 
             setDimension(new Dimension(getWidth(), getHeight()));
-
-            setBufferedImage(new BufferedImage(dimension.getWidth(), dimension.getHeight(), BufferedImage.TYPE_INT_RGB));
-
-            clear();
         }
+
+        @NotNull BufferedImage newImage = new BufferedImage(dimension.getWidth(), dimension.getHeight(), BufferedImage.TYPE_INT_RGB);
+
+        @NotNull Graphics2D g2d = newImage.createGraphics();
+
+        g2d.drawImage(bufferedImage, 0, 0, null);
+        g2d.dispose();
+
+        setBufferedImage(newImage);
     }
 
-    public void drawImage(@NotNull BufferedImage image, @NotNull Location OFFsetLocation) {
+    public void drawImage(@NotNull Image image, @NotNull Location OFFsetLocation) {
 
-        @NotNull Graphics2D g2d = image.createGraphics();
+        @NotNull Graphics2D g2d = bufferedImage.createGraphics();
 
-        g2d.drawImage(image, OFFsetLocation.getX(), OFFsetLocation.getY(), null);
+        g2d.drawImage(image.getBufferedImage(), OFFsetLocation.getX(), OFFsetLocation.getY(), image.getDimension().getWidth(), image.getDimension().getHeight(),  null);
 
         g2d.dispose();
 

@@ -1,4 +1,4 @@
-package com.codes.vinis.dimension;
+package com.codes.vinis.utils;
 
 import org.jetbrains.annotations.NotNull;
 
