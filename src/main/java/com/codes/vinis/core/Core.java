@@ -69,7 +69,6 @@ public class Core implements Runnable{
                     fps = frames;
                     frames = 0;
 
-                    System.out.println("FPS: " + fps);
                 }
 
                 if (render) {
@@ -116,7 +115,7 @@ public class Core implements Runnable{
 
     public static void main(String[] args) {
 
-        @NotNull Core core = new Core(new Window("My Window", new Dimension(420, 340)));
+        @NotNull Core core = new Core(new Window("My Window", new Dimension(420, 340), new Renderer(new Dimension(420, 340))));
 
         core.start();
     }
