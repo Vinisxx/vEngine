@@ -1,4 +1,4 @@
-package com.codes.vinis.window;
+package com.codes.vinis.vEngine.window;
 
 import javax.swing.*;
 import java.awt.event.ComponentAdapter;

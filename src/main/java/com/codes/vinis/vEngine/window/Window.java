@@ -1,7 +1,7 @@
-package com.codes.vinis.window;
+package com.codes.vinis.vEngine.window;
 
-import com.codes.vinis.core.Renderer;
-import com.codes.vinis.utils.Dimension;
+import com.codes.vinis.vEngine.core.Renderer;
+import com.codes.vinis.vEngine.utils.Dimension;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -9,40 +9,40 @@ import java.awt.*;
 
 public class Window {
 
-    private final @NotNull JFrame frame;
+    private final @NotNull JFrame FRAME;
 
-    private final @NotNull Dimension initialDimension;
+    private final @NotNull Dimension INITIAL_DIMENSION;
 
     private @NotNull Dimension dimension;
 
     private @NotNull Renderer renderer;
 
-    public Window(@NotNull String title, @NotNull Dimension dimension, @NotNull Renderer renderer) {
+    public Window(@NotNull String title, @NotNull Dimension dimension) {
 
-        this.frame = new JFrame(title);
+        this.FRAME = new JFrame(title);
 
-        this.initialDimension = dimension;
+        this.INITIAL_DIMENSION = dimension;
 
         this.dimension = dimension;
 
-        this.renderer = renderer;
+        this.renderer = new Renderer(getInitialDimension());
 
         initialize();
     }
 
     private void initialize() {
 
-        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.frame.setSize(getInitialDimension().getWidth(), getInitialDimension().getHeight());
-        this.frame.setLayout(new BorderLayout());
+        this.FRAME.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.FRAME.setSize(getInitialDimension().getWidth(), getInitialDimension().getHeight());
+        this.FRAME.setLayout(new BorderLayout());
 
-        renderer.setPreferredSize(new java.awt.Dimension(initialDimension.getWidth(), initialDimension.getHeight()));
+        renderer.setPreferredSize(new java.awt.Dimension(INITIAL_DIMENSION.getWidth(), INITIAL_DIMENSION.getHeight()));
 
-        this.frame.add(renderer, BorderLayout.CENTER);
-        this.frame.pack();
-        this.frame.add(getRenderer());
-        this.frame.setLocationRelativeTo(null);
-        this.frame.setVisible(true);
+        this.FRAME.add(renderer, BorderLayout.CENTER);
+        this.FRAME.pack();
+        this.FRAME.add(getRenderer());
+        this.FRAME.setLocationRelativeTo(null);
+        this.FRAME.setVisible(true);
     }
 
     public void update() {
@@ -57,12 +57,12 @@ public class Window {
 
     public @NotNull JFrame getFrame() {
 
-        return frame;
+        return FRAME;
     }
 
     public @NotNull Dimension getInitialDimension() {
 
-        return initialDimension;
+        return INITIAL_DIMENSION;
     }
 
     public @NotNull Dimension getDimension() {

@@ -1,6 +1,6 @@
-package com.codes.vinis.gfx.image;
+package com.codes.vinis.vEngine.gfx.image;
 
-import com.codes.vinis.utils.Dimension;
+import com.codes.vinis.vEngine.utils.Dimension;
 import org.jetbrains.annotations.NotNull;
 
 import javax.imageio.ImageIO;

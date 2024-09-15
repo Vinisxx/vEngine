@@ -1,4 +1,4 @@
-package com.codes.vinis.utils;
+package com.codes.vinis.vEngine.utils;
 
 import org.jetbrains.annotations.NotNull;
 

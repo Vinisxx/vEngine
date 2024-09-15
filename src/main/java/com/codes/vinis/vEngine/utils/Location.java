@@ -1,6 +1,5 @@
-package com.codes.vinis.utils;
+package com.codes.vinis.vEngine.utils;
 
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;

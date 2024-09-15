@@ -1,9 +1,9 @@
-package com.codes.vinis.core;
+package com.codes.vinis.vEngine.core;
 
-import com.codes.vinis.gfx.image.Image;
-import com.codes.vinis.utils.Dimension;
-import com.codes.vinis.utils.Location;
-import com.codes.vinis.window.ResponsivePanel;
+import com.codes.vinis.vEngine.gfx.image.Image;
+import com.codes.vinis.vEngine.utils.Dimension;
+import com.codes.vinis.vEngine.utils.Location;
+import com.codes.vinis.vEngine.window.ResponsivePanel;
 import org.jetbrains.annotations.NotNull;
 
 
@@ -38,9 +38,12 @@ public class Renderer extends ResponsivePanel {
             setDimension(new Dimension(getWidth(), getHeight()));
         }
 
-        @NotNull BufferedImage newImage = new BufferedImage(dimension.getWidth(), dimension.getHeight(), BufferedImage.TYPE_INT_RGB);
-
+        @NotNull BufferedImage newImage = new BufferedImage(dimension.getWidth(), dimension.getHeight(), BufferedImage.TYPE_INT_ARGB);
         @NotNull Graphics2D g2d = newImage.createGraphics();
+
+        g2d.setComposite(AlphaComposite.Clear);
+        g2d.fillRect(0, 0, dimension.getWidth(), dimension.getHeight());
+        g2d.setComposite(AlphaComposite.SrcOver);
 
         g2d.drawImage(bufferedImage, 0, 0, null);
         g2d.dispose();
@@ -48,16 +51,17 @@ public class Renderer extends ResponsivePanel {
         setBufferedImage(newImage);
     }
 
-    public void drawImage(@NotNull Image image, @NotNull Location OFFsetLocation) {
+    public void drawImage(@NotNull Image image, @NotNull Location offsetLocation) {
 
         @NotNull Graphics2D g2d = bufferedImage.createGraphics();
 
-        g2d.drawImage(image.getBufferedImage(), OFFsetLocation.getX(), OFFsetLocation.getY(), image.getDimension().getWidth(), image.getDimension().getHeight(),  null);
+        g2d.drawImage(image.getBufferedImage(), offsetLocation.getX(), offsetLocation.getY(), image.getDimension().getWidth(), image.getDimension().getHeight(), null);
 
         g2d.dispose();
 
         repaint();
     }
+
     @Override
     public void resizeComponents() {
 

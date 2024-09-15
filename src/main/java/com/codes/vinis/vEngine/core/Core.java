@@ -1,22 +1,30 @@
-package com.codes.vinis.core;
+package com.codes.vinis.vEngine.core;
 
-import com.codes.vinis.gfx.image.Image;
-import com.codes.vinis.utils.Dimension;
-import com.codes.vinis.utils.Location;
-import com.codes.vinis.window.Window;
+import com.codes.vinis.vEngine.input.Input;
+import com.codes.vinis.vEngine.utils.Dimension;
+import com.codes.vinis.vEngine.window.Window;
+import game.GameManager;
 import org.jetbrains.annotations.NotNull;
 
 public class Core implements Runnable{
 
     private @NotNull Thread thread;
 
-    private final @NotNull Window window;
+    private final @NotNull Window WINDOW;
+
+    private final @NotNull Input INPUT;
+
+    private final @NotNull GameManager GAME_MANAGER;
 
     private boolean running;
 
     public Core(@NotNull Window window) {
 
-        this.window = window;
+        this.WINDOW = window;
+
+        this.INPUT = new Input(getWindow());
+
+        this.GAME_MANAGER = new GameManager();
     }
 
     public void start() {
@@ -65,6 +73,10 @@ public class Core implements Runnable{
                 
                 render = true;
 
+                this.GAME_MANAGER.update(this, (float) update_cap);
+
+                this.INPUT.update();
+
                 if (frameTime >= 1.0) {
 
                     frameTime = 0;
@@ -76,7 +88,8 @@ public class Core implements Runnable{
 
                 if (render) {
 
-                    this.window.update();
+                    this.GAME_MANAGER.render(this, this.getWindow().getRenderer());
+                    this.WINDOW.update();
 
                     frames = frames + 1;
                 } else {
@@ -116,13 +129,18 @@ public class Core implements Runnable{
     }
 
     public @NotNull Window getWindow() {
-        return window;
+        return WINDOW;
     }
 
-    public static void main(String[] args) {
+    public @NotNull GameManager getGAME_MANAGER() {
+        return GAME_MANAGER;
+    }
 
-        @NotNull Core core = new Core(new Window("My Window", new Dimension(820, 740), new Renderer(new Dimension(820, 740))));
+    public @NotNull Input getINPUT() {
+        return INPUT;
+    }
 
-        core.start();
+    public @NotNull Window getWINDOW() {
+        return WINDOW;
     }
 }
