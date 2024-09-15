@@ -36,7 +36,9 @@ public final class Dimension {
 
     @Override
     public boolean equals(Object o) {
+
         if (o == this) return true;
+
         if (o == null || getClass() != o.getClass()) return false;
 
         Dimension dimension = (Dimension) o;
@@ -46,11 +48,13 @@ public final class Dimension {
 
     @Override
     public int hashCode() {
+
         return Objects.hash(width, height);
     }
 
     @Override
     public @NotNull String toString() {
-        return "Width: " + getWidth() + " Height: " + getHeight();
+
+        return "{ \"Width\": " + getWidth() + ", \"Height\": " + getHeight() + " }";
     }
 }
