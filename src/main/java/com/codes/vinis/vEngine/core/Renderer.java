@@ -24,14 +24,35 @@ public class Renderer extends JPanel {
         this.pixels = ((DataBufferInt)window.getIMAGE().getRaster().getDataBuffer()).getData();
     }
 
-    public void clear
+    public void clear() {
 
+        for (int i = 0; i < getPixels().length; ) {
 
+            this.pixels[i] = 0;
 
+            i = i + 1;
+        }
+    }
 
     @Override
     protected void paintComponent(Graphics g) {
 
         super.paintComponent(g);
+    }
+
+    public @NotNull Dimension getDimension() {
+        return dimension;
+    }
+
+    public void setDimension(@NotNull Dimension dimension) {
+        this.dimension = dimension;
+    }
+
+    public int[] getPixels() {
+        return pixels;
+    }
+
+    public void setPixels(int[] pixels) {
+        this.pixels = pixels;
     }
 }
