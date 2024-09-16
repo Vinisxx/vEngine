@@ -2,6 +2,7 @@ package com.codes.vinis.vEngine.core;
 
 import com.codes.vinis.vEngine.intefaces.Element;
 import com.codes.vinis.vEngine.utils.Dimension;
+import com.codes.vinis.vEngine.utils.Location;
 import com.codes.vinis.vEngine.window.Window;
 import org.jetbrains.annotations.NotNull;
 
@@ -32,6 +33,16 @@ public class Renderer extends JPanel {
 
             i = i + 1;
         }
+    }
+
+    public void setPixel(@NotNull Location location, int value) {
+
+        if ((location.getX() < 0 || location.getX() >= dimension.getWidth() || location.getY() < 0 || location.getY() >= dimension.getHeight()) || value == 0xffff00ff) {
+
+            return;
+        }
+
+        pixels[location.getX() + location.getY() * dimension.getWidth()] = value;
     }
 
     @Override
