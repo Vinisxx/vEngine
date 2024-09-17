@@ -1,6 +1,7 @@
 package com.codes.vinis.vEngine.gfx.image;
 
 import com.codes.vinis.vEngine.utils.Dimension;
+import com.codes.vinis.vEngine.utils.Location;
 import org.jetbrains.annotations.NotNull;
 
 import javax.imageio.ImageIO;
@@ -12,38 +13,54 @@ public class Image {
 
     private @NotNull Dimension dimension;
 
-    private @NotNull BufferedImage bufferedImage;
+    private @NotNull Location location;
 
-    public Image(@NotNull String URL, @NotNull Dimension dimension) {
+    private int[] pixels;
+
+    public Image(@NotNull String path, @NotNull Location location) {
+
+        @NotNull BufferedImage image = null;
 
         try {
 
-            this.bufferedImage = ImageIO.read(new File(URL));
-
-            this.dimension = dimension;
+            image = ImageIO.read(new File(path));
         } catch (IOException e) {
 
             e.printStackTrace();
         }
+
+        assert image != null;
+
+        this.dimension = new Dimension(image.getWidth(), image.getHeight());
+
+        this.location = location;
+
+        this.pixels = image.getRGB(0, 0, getDimension().getWidth(), getDimension().getHeight(), null, 0, getDimension().getWidth());
+
+        image.flush();
     }
 
     public @NotNull Dimension getDimension() {
-
         return dimension;
     }
 
     public void setDimension(@NotNull Dimension dimension) {
-
         this.dimension = dimension;
     }
 
-    public @NotNull BufferedImage getBufferedImage() {
-
-        return bufferedImage;
+    public @NotNull Location getLocation() {
+        return location;
     }
 
-    public void setBufferedImage(@NotNull BufferedImage bufferedImage) {
+    public void setLocation(@NotNull Location location) {
+        this.location = location;
+    }
 
-        this.bufferedImage = bufferedImage;
+    public int[] getPixels() {
+        return pixels;
+    }
+
+    public void setPixels(int[] pixels) {
+        this.pixels = pixels;
     }
 }

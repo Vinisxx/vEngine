@@ -66,8 +66,6 @@ public class Window {
             @NotNull java.awt.Dimension size = new java.awt.Dimension((int) (getDimension().getWidth() * getSCALE()), (int) (getDimension().getHeight() * getSCALE()));
 
             getCANVAS().setPreferredSize(size);
-            getCANVAS().setMaximumSize(size);
-            getCANVAS().setMinimumSize(size);
         }
 
         getGRAPHICS().drawImage(getIMAGE(), 0, 0, getCANVAS().getWidth(), getCANVAS().getHeight(), null);

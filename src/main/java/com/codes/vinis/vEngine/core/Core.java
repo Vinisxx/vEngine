@@ -1,7 +1,6 @@
 package com.codes.vinis.vEngine.core;
 
 import com.codes.vinis.vEngine.input.Input;
-import com.codes.vinis.vEngine.utils.Dimension;
 import com.codes.vinis.vEngine.window.Window;
 import game.GameManager;
 import org.jetbrains.annotations.NotNull;
@@ -12,6 +11,8 @@ public class Core implements Runnable{
 
     private final @NotNull Window WINDOW;
 
+    private final @NotNull Renderer RENDERER;
+
     private final @NotNull Input INPUT;
 
     private final @NotNull GameManager GAME_MANAGER;
@@ -21,6 +22,8 @@ public class Core implements Runnable{
     public Core(@NotNull Window window) {
 
         this.WINDOW = window;
+
+        this.RENDERER = new Renderer(getWINDOW());
 
         this.INPUT = new Input(getWindow());
 
@@ -88,7 +91,8 @@ public class Core implements Runnable{
 
                 if (render) {
 
-                    this.GAME_MANAGER.render(this, this.getWindow().getRenderer());
+                    this.RENDERER.clear();
+                    this.GAME_MANAGER.render(this, RENDERER);
                     this.WINDOW.update();
 
                     frames = frames + 1;

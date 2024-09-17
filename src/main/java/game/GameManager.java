@@ -15,39 +15,39 @@ public class GameManager implements Game {
 
     private @NotNull Image sprite;
 
-    private @NotNull Location location;
-
     public GameManager() {
 
-        this.sprite = new Image("src/main/resources/person/person1.png", new Dimension(45, 45));
-
-        this.location = new Location(0, 0);
+        this.sprite = new Image("src/main/resources/person/person1.png", new Location(0, 0));
     }
 
     @Override
     public void update(@NotNull Core core, float deltaTime) {
 
         if (core.getINPUT().isKey(KeyEvent.VK_W)) {
-            location = new Location(location.getX(), location.getY() - 1);
+
+            sprite.getLocation().setY(sprite.getLocation().getY() - 1);
         }
         if (core.getINPUT().isKey(KeyEvent.VK_S)) {
-            location = new Location(location.getX(), location.getY() + 1);
+
+            sprite.getLocation().setY(sprite.getLocation().getY() + 1);
         }
         if (core.getINPUT().isKey(KeyEvent.VK_A)) {
-            location = new Location(location.getX() - 1, location.getY());
+
+            sprite.getLocation().setX(sprite.getLocation().getX() - 1);
         }
         if (core.getINPUT().isKey(KeyEvent.VK_D)) {
-            location = new Location(location.getX() + 1, location.getY());
+
+            sprite.getLocation().setX(sprite.getLocation().getX() + 1);
         }
     }
 
     @Override
     public void render(@NotNull Core core, @NotNull Renderer renderer) {
-        renderer.drawImage(sprite, location);
+        renderer.drawImage(sprite, sprite.getLocation());
     }
 
     public static void main(String[] args) {
-        @NotNull Core core = new Core(new Window("my game", new Dimension(500, 400)));
+        @NotNull Core core = new Core(new Window("my game", new Dimension(320, 240), 2f));
 
         core.start();
     }

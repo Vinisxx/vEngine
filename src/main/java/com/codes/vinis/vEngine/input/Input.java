@@ -27,10 +27,10 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener, M
         this.mouseY = 0;
         this.mouseScroll = 0;
 
-        this.WINDOW.getFrame().addKeyListener(this);
-        this.WINDOW.getFrame().addMouseListener(this);
-        this.WINDOW.getFrame().addMouseMotionListener(this);
-        this.WINDOW.getFrame().addMouseWheelListener(this);
+        this.WINDOW.getFRAME().addKeyListener(this);
+        this.WINDOW.getFRAME().addMouseListener(this);
+        this.WINDOW.getFRAME().addMouseMotionListener(this);
+        this.WINDOW.getFRAME().addMouseWheelListener(this);
     }
 
     public void update() {
