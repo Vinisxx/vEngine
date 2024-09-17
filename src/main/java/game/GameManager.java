@@ -43,7 +43,7 @@ public class GameManager implements Game {
 
     @Override
     public void render(@NotNull Core core, @NotNull Renderer renderer) {
-        renderer.drawImage(sprite, sprite.getLocation());
+        renderer.drawImage(sprite);
     }
 
     public static void main(String[] args) {

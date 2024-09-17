@@ -41,43 +41,43 @@ public class Renderer {
         pixels[location.getX() + location.getY() * getDimension().getWidth()] = value;
     }
 
-    public void drawImage(@NotNull Image image, @NotNull Location offLocation) {
+    public void drawImage(@NotNull Image image) {
 
         @NotNull Location newLocation = new Location(0, 0);
 
         @NotNull Dimension newDimension = new Dimension(image.getDimension().getWidth(),image.getDimension().getHeight());
 
-        if (offLocation.getX() < -newDimension.getWidth()) return;
-        if (offLocation.getY() < -newDimension.getHeight()) return;
+        if (image.getLocation().getX() < -newDimension.getWidth()) return;
+        if (image.getLocation().getY() < -newDimension.getHeight()) return;
 
-        if (offLocation.getX() >= getDimension().getWidth()) return;
-        if (offLocation.getY() >= getDimension().getHeight()) return;
+        if (image.getLocation().getX() >= getDimension().getWidth()) return;
+        if (image.getLocation().getY() >= getDimension().getHeight()) return;
 
-        if (offLocation.getX() < 0) {
+        if (image.getLocation().getX() < 0) {
 
-            newLocation.setX(newLocation.getX() - offLocation.getX());
+            newLocation.setX(newLocation.getX() - image.getLocation().getX());
         }
 
-        if (offLocation.getY() < 0) {
+        if (image.getLocation().getY() < 0) {
 
-            newLocation.setY(newLocation.getY() - offLocation.getY());
+            newLocation.setY(newLocation.getY() - image.getLocation().getY());
         }
 
-        if (newDimension.getWidth() + offLocation.getX() > getDimension().getWidth()) {
+        if (newDimension.getWidth() + image.getLocation().getX() > getDimension().getWidth()) {
 
-            newDimension.setWidth(newDimension.getWidth() - (newDimension.getWidth() + offLocation.getX() - getDimension().getWidth()));
+            newDimension.setWidth(newDimension.getWidth() - (newDimension.getWidth() + image.getLocation().getX() - getDimension().getWidth()));
         }
 
-        if (newDimension.getHeight() + offLocation.getY() > getDimension().getHeight()) {
+        if (newDimension.getHeight() + image.getLocation().getY() > getDimension().getHeight()) {
 
-            newDimension.setHeight(newDimension.getHeight() - (newDimension.getHeight() + offLocation.getY() - getDimension().getHeight()));
+            newDimension.setHeight(newDimension.getHeight() - (newDimension.getHeight() + image.getLocation().getY() - getDimension().getHeight()));
         }
 
         for (int y = newLocation.getY(); y < newDimension.getHeight(); y++) {
 
             for (int x = newLocation.getX();  x < newDimension.getWidth(); x++) {
 
-                setPixel(new Location(x + offLocation.getX(), y + offLocation.getY()), image.getPixels()[x + y * image.getDimension().getWidth()]);
+                setPixel(new Location(x + image.getLocation().getX(), y + image.getLocation().getY()), image.getPixels()[x + y * image.getDimension().getWidth()]);
             }
         }
     }
