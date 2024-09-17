@@ -94,7 +94,6 @@ public class Core implements Runnable{
                     this.RENDERER.clear();
                     this.GAME_MANAGER.render(this, RENDERER);
                     this.WINDOW.update();
-
                     frames = frames + 1;
                 } else {
 

@@ -6,7 +6,7 @@ import java.util.Objects;
 
 public final class Dimension {
 
-    public int width, height;
+    private int width, height;
 
     public Dimension(int width, int height) {
 

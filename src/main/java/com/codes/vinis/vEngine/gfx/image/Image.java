@@ -1,5 +1,6 @@
 package com.codes.vinis.vEngine.gfx.image;
 
+import com.codes.vinis.vEngine.intefaces.Renderable;
 import com.codes.vinis.vEngine.utils.Dimension;
 import com.codes.vinis.vEngine.utils.Location;
 import org.jetbrains.annotations.NotNull;
@@ -9,7 +10,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class Image {
+public class Image implements Renderable {
 
     private @NotNull Dimension dimension;
 
@@ -40,6 +41,7 @@ public class Image {
         image.flush();
     }
 
+    @Override
     public @NotNull Dimension getDimension() {
         return dimension;
     }
@@ -48,6 +50,7 @@ public class Image {
         this.dimension = dimension;
     }
 
+    @Override
     public @NotNull Location getLocation() {
         return location;
     }
@@ -56,6 +59,7 @@ public class Image {
         this.location = location;
     }
 
+    @Override
     public int[] getPixels() {
         return pixels;
     }

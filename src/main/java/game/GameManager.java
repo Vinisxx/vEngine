@@ -25,19 +25,19 @@ public class GameManager implements Game {
 
         if (core.getINPUT().isKey(KeyEvent.VK_W)) {
 
-            sprite.getLocation().setY(sprite.getLocation().getY() - 1);
+            sprite.getLocation().setY(sprite.getLocation().getY() - 2);
         }
         if (core.getINPUT().isKey(KeyEvent.VK_S)) {
 
-            sprite.getLocation().setY(sprite.getLocation().getY() + 1);
+            sprite.getLocation().setY(sprite.getLocation().getY() + 2);
         }
         if (core.getINPUT().isKey(KeyEvent.VK_A)) {
 
-            sprite.getLocation().setX(sprite.getLocation().getX() - 1);
+            sprite.getLocation().setX(sprite.getLocation().getX() - 2);
         }
         if (core.getINPUT().isKey(KeyEvent.VK_D)) {
 
-            sprite.getLocation().setX(sprite.getLocation().getX() + 1);
+            sprite.getLocation().setX(sprite.getLocation().getX() + 2);
         }
     }
 
@@ -47,7 +47,7 @@ public class GameManager implements Game {
     }
 
     public static void main(String[] args) {
-        @NotNull Core core = new Core(new Window("my game", new Dimension(320, 240), 2f));
+        @NotNull Core core = new Core(new Window("my game", new Dimension(400, 300), 2f));
 
         core.start();
     }
