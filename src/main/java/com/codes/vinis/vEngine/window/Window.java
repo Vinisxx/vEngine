@@ -14,11 +14,11 @@ public class Window {
 
     private final @NotNull BufferedImage IMAGE;
 
-    private final @NotNull BufferStrategy BUFFER_STRATEGY;
+    private @NotNull BufferStrategy bufferStrategy;
 
     private final @NotNull Canvas CANVAS;
 
-    private final @NotNull Graphics GRAPHICS;
+    private @NotNull Graphics graphics;
 
     private @NotNull Dimension dimension;
 
@@ -52,25 +52,27 @@ public class Window {
 
         getCANVAS().createBufferStrategy(2);
 
-        this.BUFFER_STRATEGY = getCANVAS().getBufferStrategy();
+        this.bufferStrategy = getCANVAS().getBufferStrategy();
 
-        this.GRAPHICS = getBUFFER_STRATEGY().getDrawGraphics();
+        this.graphics = getBufferStrategy().getDrawGraphics();
     }
 
     public void update() {
-
         if (getFRAME().getWidth() != getDimension().getWidth() || getFRAME().getHeight() != getDimension().getHeight()) {
-
             setDimension(new Dimension(getFRAME().getWidth(), getFRAME().getHeight()));
 
-            @NotNull java.awt.Dimension size = new java.awt.Dimension((int) (getDimension().getWidth() * getSCALE()), (int) (getDimension().getHeight() * getSCALE()));
-
+            java.awt.Dimension size = new java.awt.Dimension((int) (getDimension().getWidth() * getSCALE()), (int) (getDimension().getHeight() * getSCALE()));
             getCANVAS().setPreferredSize(size);
+            getCANVAS().setSize(size);
+
+            // Recriar BufferStrategy após redimensionamento
+            getCANVAS().createBufferStrategy(2);
+            this.bufferStrategy = getCANVAS().getBufferStrategy();
+            this.graphics = getBufferStrategy().getDrawGraphics();
         }
 
-        getGRAPHICS().drawImage(getIMAGE(), 0, 0, getCANVAS().getWidth(), getCANVAS().getHeight(), null);
-
-        getBUFFER_STRATEGY().show();
+        getGraphics().drawImage(getIMAGE(), 0, 0, getCANVAS().getWidth(), getCANVAS().getHeight(), null);
+        getBufferStrategy().show();
     }
 
     public @NotNull JFrame getFRAME() {
@@ -81,16 +83,16 @@ public class Window {
         return IMAGE;
     }
 
-    public @NotNull BufferStrategy getBUFFER_STRATEGY() {
-        return BUFFER_STRATEGY;
+    public @NotNull BufferStrategy getBufferStrategy() {
+        return bufferStrategy;
     }
 
     public @NotNull Canvas getCANVAS() {
         return CANVAS;
     }
 
-    public @NotNull Graphics getGRAPHICS() {
-        return GRAPHICS;
+    public @NotNull Graphics getGraphics() {
+        return graphics;
     }
 
     public @NotNull Dimension getDimension() {
