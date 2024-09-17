@@ -1,6 +1,7 @@
 package com.codes.vinis.vEngine.core;
 
 import com.codes.vinis.vEngine.gfx.image.Image;
+import com.codes.vinis.vEngine.intefaces.Renderable;
 import com.codes.vinis.vEngine.utils.Dimension;
 import com.codes.vinis.vEngine.utils.Location;
 import com.codes.vinis.vEngine.window.Window;
@@ -18,7 +19,7 @@ public class Renderer {
 
         this.dimension = window.getDimension();
 
-        pixels = ((DataBufferInt)window.getIMAGE().getRaster().getDataBuffer()).getData();
+        pixels = ((DataBufferInt) window.getIMAGE().getRaster().getDataBuffer()).getData();
     }
 
     public void clear() {
@@ -41,7 +42,7 @@ public class Renderer {
         pixels[location.getX() + location.getY() * getDimension().getWidth()] = value;
     }
 
-    public void drawImage(@NotNull Image image) {
+    public void drawImage(@NotNull Renderable image) {
 
         @NotNull Location newLocation = new Location(0, 0);
 
