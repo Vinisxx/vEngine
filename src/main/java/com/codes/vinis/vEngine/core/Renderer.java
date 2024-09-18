@@ -1,6 +1,5 @@
 package com.codes.vinis.vEngine.core;
 
-import com.codes.vinis.vEngine.gfx.image.Image;
 import com.codes.vinis.vEngine.intefaces.Renderable;
 import com.codes.vinis.vEngine.utils.Dimension;
 import com.codes.vinis.vEngine.utils.Location;
