@@ -115,6 +115,9 @@ public class Sprite implements Renderable {
     }
 
     @Override
+    public void update() {}
+
+    @Override
     public @NotNull Dimension getDimension() {
 
         return dimension;

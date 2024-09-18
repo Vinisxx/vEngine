@@ -64,6 +64,9 @@ public class AnimateSprite implements Renderable {
         return getFrames().get(getCurrentFrame());
     }
 
+    @Override
+    public void update() {}
+
     public int getCurrentFrame() {
 
         return currentFrame;
