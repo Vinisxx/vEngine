@@ -18,9 +18,8 @@ public class Sprite implements Renderable {
 
     private int[] pixels;
 
-    private int currentDirectionX = 1;
-
-    private int currentDirectionY = 1;
+    private boolean flippingX = false;
+    private boolean flippingY = false;
 
     public Sprite(@NotNull String path, @NotNull Location location) {
 
@@ -47,54 +46,98 @@ public class Sprite implements Renderable {
 
     public void invertX(int direction){
 
-        if (direction == getCurrentDirectionX()) {
+        if (direction < 0 && !isFlippingX()) {
 
-            return;
-        }
+            for (int y = 0; y < getDimension().getHeight(); ) {
 
-        for (int y = 0; y < getDimension().getHeight(); ) {
+                for (int x = 0; x < getDimension().getWidth() / 2; ) {
 
-            for (int x = 0; x < getDimension().getWidth() / 2; ) {
+                    int oppositeX = getDimension().getWidth() - 1 - x;
 
-                int oppositeX = getDimension().getWidth() - 1 - x;
+                    int temp = pixels[x + y * getDimension().getWidth()];
 
-                int temp = pixels[x + y * getDimension().getWidth()];
+                    pixels[x + y * getDimension().getWidth()] = pixels[oppositeX + y * getDimension().getWidth()];
+                    pixels[oppositeX + y * getDimension().getWidth()] = temp;
 
-                pixels[x + y * getDimension().getWidth()] = pixels[oppositeX + y * getDimension().getWidth()];
-                pixels[oppositeX + y * getDimension().getWidth()] = temp;
+                    x = x + 1;
+                }
 
-                x = x + 1;
+                y = y + 1;
+
+                setFlippingX(true);
             }
-
-            y = y + 1;
         }
 
-        setCurrentDirectionX(direction);
+        if (direction > 0 && isFlippingX()) {
+
+            for (int y = 0; y < getDimension().getHeight(); ) {
+
+                for (int x = 0; x < getDimension().getWidth() / 2; ) {
+
+                    int oppositeX = getDimension().getWidth() - 1 - x;
+
+                    int temp = pixels[x + y * getDimension().getWidth()];
+
+                    pixels[x + y * getDimension().getWidth()] = pixels[oppositeX + y * getDimension().getWidth()];
+                    pixels[oppositeX + y * getDimension().getWidth()] = temp;
+
+                    x = x + 1;
+                }
+
+                y = y + 1;
+
+
+                setFlippingX(false);
+            }
+        }
     }
 
     public void invertY(int direction) {
-        if (direction == getCurrentDirectionY()) {
-            return;
-        }
 
-        for (int y = 0; y < getDimension().getHeight() / 2; ) {
+        if (direction < 0 && !isFlippingY()) {
 
-            for (int x = 0; x < getDimension().getWidth(); ) {
+            for (int y = 0; y < getDimension().getHeight() / 2; ) {
 
-                int oppositeY = getDimension().getHeight() - 1 - y;
+                for (int x = 0; x < getDimension().getWidth(); ) {
 
-                int temp = pixels[x + y * getDimension().getWidth()];
+                    int oppositeY = getDimension().getHeight() - 1 - y;
 
-                pixels[x + y * getDimension().getWidth()] = pixels[x + oppositeY * getDimension().getWidth()];
-                pixels[x + oppositeY * getDimension().getWidth()] = temp;
+                    int temp = pixels[x + y * getDimension().getWidth()];
 
-                x = x + 1;
+                    pixels[x + y * getDimension().getWidth()] = pixels[x + oppositeY * getDimension().getWidth()];
+                    pixels[x + oppositeY * getDimension().getWidth()] = temp;
+
+                    x = x + 1;
+                }
+
+                y = y + 1;
             }
 
-            y = y + 1;
+
+            setFlippingY(true);
         }
 
-        setCurrentDirectionY(direction);
+        if (direction > 0 && isFlippingY()) {
+
+            for (int y = 0; y < getDimension().getHeight() / 2; ) {
+
+                for (int x = 0; x < getDimension().getWidth(); ) {
+
+                    int oppositeY = getDimension().getHeight() - 1 - y;
+
+                    int temp = pixels[x + y * getDimension().getWidth()];
+
+                    pixels[x + y * getDimension().getWidth()] = pixels[x + oppositeY * getDimension().getWidth()];
+                    pixels[x + oppositeY * getDimension().getWidth()] = temp;
+
+                    x = x + 1;
+                }
+
+                y = y + 1;
+            }
+
+            setFlippingY(false);
+        }
     }
 
     @Override
@@ -130,23 +173,19 @@ public class Sprite implements Renderable {
         this.pixels = pixels;
     }
 
-    public int getCurrentDirectionY() {
-
-        return currentDirectionY;
+    public boolean isFlippingX() {
+        return flippingX;
     }
 
-    public void setCurrentDirectionY(int currentDirectionY) {
-
-        this.currentDirectionY = currentDirectionY;
+    public void setFlippingX(boolean flippingX) {
+        this.flippingX = flippingX;
     }
 
-    public int getCurrentDirectionX() {
-
-        return currentDirectionX;
+    public boolean isFlippingY() {
+        return flippingY;
     }
 
-    public void setCurrentDirectionX(int currentDirectionX) {
-
-        this.currentDirectionX = currentDirectionX;
+    public void setFlippingY(boolean flippingY) {
+        this.flippingY = flippingY;
     }
 }
