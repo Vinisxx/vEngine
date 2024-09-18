@@ -1,15 +1,22 @@
 package com.codes.vinis.vEngine.gfx.image.animate;
 
+import com.codes.vinis.vEngine.utils.Dimension;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.stream.Stream;
 
 public class Frames implements Iterable<int[]> {
 
     private final @NotNull Map<@NotNull Integer, int[]> frames;
+
+    private @NotNull Dimension dimension;
 
     private int totalFrames = 0;
 
@@ -18,11 +25,36 @@ public class Frames implements Iterable<int[]> {
         this.frames = new HashMap<>();
     }
 
-    public void add(int index, int[] pixels) {
+    private @NotNull BufferedImage loadImage(@NotNull String path) {
+
+        @Nullable BufferedImage image = null;
+
+        try {
+
+            image = ImageIO.read(new File(path));
+        } catch (IOException e) {
+
+            e.printStackTrace();
+        }
+
+        assert image != null;
+
+        return image;
+    }
+
+    public void add(int index, @NotNull String path) {
+
+        @NotNull BufferedImage image = loadImage(path);
+
+        setDimension(new Dimension(image.getWidth(), image.getHeight()));
+
+        int[] pixels = image.getRGB(0, 0, getDimension().getWidth(), getDimension().getHeight(), null, 0, getDimension().getWidth());
 
         getFrames().put(index, pixels);
 
         setTotalFrames(getTotalFrames() + 1);
+
+        image.flush();
     }
 
     public void remove(int index) {
@@ -34,15 +66,22 @@ public class Frames implements Iterable<int[]> {
         rearrangeFrames();
     }
 
-    public void update(int index, int[] pixels) {
+    public void update(int index, @NotNull String path) {
+
+        @NotNull BufferedImage image = loadImage(path);
+
+        setDimension(new Dimension(image.getWidth(), image.getHeight()));
+
+        int[] pixels = image.getRGB(0, 0, getDimension().getWidth(), getDimension().getHeight(), null, 0, getDimension().getWidth());
 
         getFrames().put(index, pixels);
+
+        image.flush();
     }
 
     public int[] get(int index) {
 
         return getFrames().getOrDefault(index, null);
-
     }
 
     private void rearrangeFrames() {
@@ -51,7 +90,7 @@ public class Frames implements Iterable<int[]> {
 
         int newIndex = 0;
 
-        for (int[] pixels : getFrames().values()) {
+        for (int[] pixels : frames.values()) {
 
             newFrames.put(newIndex++, pixels);
         }
@@ -74,14 +113,19 @@ public class Frames implements Iterable<int[]> {
         setTotalFrames(0);
     }
 
-    public @NotNull Stream<int[]> stream() {
-
-        return getFrames().values().stream();
-    }
-
     public @NotNull Map<@NotNull Integer, int[]> getFrames() {
 
         return frames;
+    }
+
+    public void setDimension(@NotNull Dimension dimension) {
+
+        this.dimension = dimension;
+    }
+
+    public @NotNull Dimension getDimension() {
+
+        return dimension;
     }
 
     public void setTotalFrames(int totalFrames) {
