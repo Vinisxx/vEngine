@@ -11,4 +11,6 @@ public interface Renderable {
     @NotNull Location getLocation();
 
     int[] getPixels();
+
+    void update();
 }
