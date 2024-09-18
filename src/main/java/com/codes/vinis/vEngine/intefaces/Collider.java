@@ -4,19 +4,15 @@ import com.codes.vinis.vEngine.utils.Dimension;
 import com.codes.vinis.vEngine.utils.Location;
 import org.jetbrains.annotations.NotNull;
 
-public interface Renderable {
+public interface Collider {
 
-    @NotNull Dimension getDimension();
+    boolean collidesWith(@NotNull Collider other);
 
     @NotNull Location getLocation();
-
     void setLocation(@NotNull Location location);
 
-    int[] getPixels();
+    @NotNull Dimension getDimension();
+    void setDimension(@NotNull Dimension dimension);
 
     void update();
-
-    void invertX(int direction);
-
-    void invertY(int direction);
 }

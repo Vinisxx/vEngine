@@ -27,7 +27,7 @@ public class Core implements Runnable{
 
         this.INPUT = new Input(getWindow());
 
-        this.GAME_MANAGER = new GameManager();
+        this.GAME_MANAGER = new GameManager(this);
     }
 
     public void start() {
@@ -92,7 +92,7 @@ public class Core implements Runnable{
                 if (render) {
 
                     this.RENDERER.clear();
-                    this.GAME_MANAGER.render(this, RENDERER);
+                    this.GAME_MANAGER.render(this);
                     this.WINDOW.update();
                     frames = frames + 1;
                 } else {
@@ -145,5 +145,9 @@ public class Core implements Runnable{
 
     public @NotNull Window getWINDOW() {
         return WINDOW;
+    }
+
+    public @NotNull Renderer getRENDERER() {
+        return RENDERER;
     }
 }

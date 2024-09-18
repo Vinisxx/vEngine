@@ -8,5 +8,5 @@ public interface Game {
 
     void update(@NotNull Core core, float deltaTime);
 
-    void render(@NotNull Core core, @NotNull Renderer renderer);
+    void render(@NotNull Core core);
 }

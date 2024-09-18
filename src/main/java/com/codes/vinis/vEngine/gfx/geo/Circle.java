@@ -81,6 +81,12 @@ public class Circle implements Renderable {
     @Override
     public void update() {}
 
+    @Override
+    public void invertX(int direction) {}
+
+    @Override
+    public void invertY(int direction) {}
+
     public void setPixels(int[] pixels) {
 
         this.pixels = pixels;
