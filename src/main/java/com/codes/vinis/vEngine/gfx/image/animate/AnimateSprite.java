@@ -93,4 +93,14 @@ public class AnimateSprite implements Renderable {
 
         this.lastFrameTime = lastFrameTime;
     }
+
+    public void invertX(int direction) {
+
+        getFrames().invertX(direction);
+    }
+
+    public void invertY(int direction) {
+
+        getFrames().invertY(direction);
+    }
 }

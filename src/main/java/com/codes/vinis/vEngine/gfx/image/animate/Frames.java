@@ -20,6 +20,9 @@ public class Frames implements Iterable<int[]> {
 
     private int totalFrames = 0;
 
+    private boolean flippingX = false;
+    private boolean flippingY = false;
+
     public Frames() {
 
         this.frames = new HashMap<>();
@@ -100,6 +103,83 @@ public class Frames implements Iterable<int[]> {
         getFrames().putAll(newFrames);
     }
 
+    public void invertX(int direction) {
+
+        if (direction < 0 && !isFlippingX()) {
+
+            flipPixelsX();
+
+            setFlippingX(true);
+        } else if (direction > 0 && isFlippingX()) {
+
+            flipPixelsX();
+
+            setFlippingX(false);
+        }
+    }
+
+    private void flipPixelsX() {
+
+        for (int[] pixels : getFrames().values()) {
+
+            for (int y = 0; y < getDimension().getHeight(); ) {
+
+                for (int x = 0; x < getDimension().getWidth() / 2; ) {
+
+                    int oppositeX = getDimension().getWidth() - 1 - x;
+
+                    int temp = pixels[x + y * getDimension().getWidth()];
+
+                    pixels[x + y * getDimension().getWidth()] = pixels[oppositeX + y * getDimension().getWidth()];
+                    pixels[oppositeX + y * getDimension().getWidth()] = temp;
+
+                    x = x + 1;
+                }
+
+                y = y + 1;
+            }
+        }
+    }
+
+
+    public void invertY(int direction) {
+
+        if (direction < 0 && !isFlippingY()) {
+
+            flipPixelsY();
+
+            setFlippingY(true);
+        } else if (direction > 0 && isFlippingY()) {
+
+            flipPixelsY();
+
+            setFlippingY(false);
+        }
+    }
+
+    private void flipPixelsY() {
+
+        for (int[] pixels : getFrames().values()) {
+
+            for (int y = 0; y < getDimension().getHeight() / 2; ) {
+
+                for (int x = 0; x < getDimension().getWidth(); ) {
+
+                    int oppositeY = getDimension().getHeight() - 1 - y;
+
+                    int temp = pixels[x + y * getDimension().getWidth()];
+
+                    pixels[x + y * getDimension().getWidth()] = pixels[x + oppositeY * getDimension().getWidth()];
+                    pixels[x + oppositeY * getDimension().getWidth()] = temp;
+
+                    x = x + 1;
+                }
+
+                y = y + 1;
+            }
+        }
+    }
+
     @Override
     public @NotNull Iterator<int[]> iterator() {
 
@@ -136,5 +216,25 @@ public class Frames implements Iterable<int[]> {
     public int getTotalFrames() {
 
         return totalFrames;
+    }
+
+    public boolean isFlippingX() {
+
+        return flippingX;
+    }
+
+    public void setFlippingX(boolean flippingX) {
+
+        this.flippingX = flippingX;
+    }
+
+    public boolean isFlippingY() {
+
+        return flippingY;
+    }
+
+    public void setFlippingY(boolean flippingY) {
+
+        this.flippingY = flippingY;
     }
 }

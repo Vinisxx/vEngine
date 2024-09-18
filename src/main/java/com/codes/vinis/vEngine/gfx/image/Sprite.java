@@ -48,47 +48,34 @@ public class Sprite implements Renderable {
 
         if (direction < 0 && !isFlippingX()) {
 
-            for (int y = 0; y < getDimension().getHeight(); ) {
-
-                for (int x = 0; x < getDimension().getWidth() / 2; ) {
-
-                    int oppositeX = getDimension().getWidth() - 1 - x;
-
-                    int temp = pixels[x + y * getDimension().getWidth()];
-
-                    pixels[x + y * getDimension().getWidth()] = pixels[oppositeX + y * getDimension().getWidth()];
-                    pixels[oppositeX + y * getDimension().getWidth()] = temp;
-
-                    x = x + 1;
-                }
-
-                y = y + 1;
-
-                setFlippingX(true);
-            }
+            invertPixelsX();
+            setFlippingX(true);
         }
 
         if (direction > 0 && isFlippingX()) {
 
-            for (int y = 0; y < getDimension().getHeight(); ) {
+            invertPixelsX();
+            setFlippingX(false);
+        }
+    }
 
-                for (int x = 0; x < getDimension().getWidth() / 2; ) {
+    private void invertPixelsX() {
 
-                    int oppositeX = getDimension().getWidth() - 1 - x;
+        for (int y = 0; y < getDimension().getHeight(); ) {
 
-                    int temp = pixels[x + y * getDimension().getWidth()];
+            for (int x = 0; x < getDimension().getWidth() / 2; ) {
 
-                    pixels[x + y * getDimension().getWidth()] = pixels[oppositeX + y * getDimension().getWidth()];
-                    pixels[oppositeX + y * getDimension().getWidth()] = temp;
+                int oppositeX = getDimension().getWidth() - 1 - x;
 
-                    x = x + 1;
-                }
+                int temp = pixels[x + y * getDimension().getWidth()];
 
-                y = y + 1;
+                pixels[x + y * getDimension().getWidth()] = pixels[oppositeX + y * getDimension().getWidth()];
+                pixels[oppositeX + y * getDimension().getWidth()] = temp;
 
-
-                setFlippingX(false);
+                x = x + 1;
             }
+
+            y = y + 1;
         }
     }
 
@@ -96,47 +83,34 @@ public class Sprite implements Renderable {
 
         if (direction < 0 && !isFlippingY()) {
 
-            for (int y = 0; y < getDimension().getHeight() / 2; ) {
-
-                for (int x = 0; x < getDimension().getWidth(); ) {
-
-                    int oppositeY = getDimension().getHeight() - 1 - y;
-
-                    int temp = pixels[x + y * getDimension().getWidth()];
-
-                    pixels[x + y * getDimension().getWidth()] = pixels[x + oppositeY * getDimension().getWidth()];
-                    pixels[x + oppositeY * getDimension().getWidth()] = temp;
-
-                    x = x + 1;
-                }
-
-                y = y + 1;
-            }
-
-
+            invertPixelsY();
             setFlippingY(true);
         }
 
         if (direction > 0 && isFlippingY()) {
 
-            for (int y = 0; y < getDimension().getHeight() / 2; ) {
+            invertPixelsY();
+            setFlippingY(false);
+        }
+    }
 
-                for (int x = 0; x < getDimension().getWidth(); ) {
+    public void invertPixelsY() {
 
-                    int oppositeY = getDimension().getHeight() - 1 - y;
+        for (int y = 0; y < getDimension().getHeight() / 2; ) {
 
-                    int temp = pixels[x + y * getDimension().getWidth()];
+            for (int x = 0; x < getDimension().getWidth(); ) {
 
-                    pixels[x + y * getDimension().getWidth()] = pixels[x + oppositeY * getDimension().getWidth()];
-                    pixels[x + oppositeY * getDimension().getWidth()] = temp;
+                int oppositeY = getDimension().getHeight() - 1 - y;
 
-                    x = x + 1;
-                }
+                int temp = pixels[x + y * getDimension().getWidth()];
 
-                y = y + 1;
+                pixels[x + y * getDimension().getWidth()] = pixels[x + oppositeY * getDimension().getWidth()];
+                pixels[x + oppositeY * getDimension().getWidth()] = temp;
+
+                x = x + 1;
             }
 
-            setFlippingY(false);
+            y = y + 1;
         }
     }
 
@@ -174,18 +148,22 @@ public class Sprite implements Renderable {
     }
 
     public boolean isFlippingX() {
+
         return flippingX;
     }
 
     public void setFlippingX(boolean flippingX) {
+
         this.flippingX = flippingX;
     }
 
     public boolean isFlippingY() {
+
         return flippingY;
     }
 
     public void setFlippingY(boolean flippingY) {
+
         this.flippingY = flippingY;
     }
 }
